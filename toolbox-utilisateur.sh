@@ -1,4 +1,4 @@
-echo "plop"
+
 fini=0
 while [ $fini = 0 ]
 do
