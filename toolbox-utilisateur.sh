@@ -1,6 +1,6 @@
 
-fini=0
-while [ $fini = 0 ]
+
+while [ true ]
 do
 	echo "menu"
 	echo "1 - creer utilisateur"
@@ -11,10 +11,18 @@ do
 	case $choix in
 		"1") echo "nom d'utilisateur"
 			read nom
-			sudo adduser $nom;;
+			if id "$nom" &>/dev/null; then echo "erreur l'utilisateur existe deja"
+			exit 0
+			else sudo adduser $nom
+			fi  ;;
 		"2") echo "nom d'utilisateur"
 			read nom
-			sudo userdel -f -r $nom;;
-	"3") fini=1;;
+			if id "$nom" &>/dev/null; then	sudo userdel -f -r $nom
+			else 	echo "erreur utilisateur inconu" 
+				exit 0
+			fi ;;
+		"3") exit 0;;
+		*) echo "commande non autoriser";;
+
 esac
 done
